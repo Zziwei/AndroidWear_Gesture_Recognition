@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">WearUDPDemo</string>
+    <string name="hello_world">AW UDP demo</string>
+</resources>
