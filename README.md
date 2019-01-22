@@ -27,4 +27,4 @@ Demo Videos:
 
 [![Gesture Recognition on Moto360](http://img.youtube.com/vi/EyYFwvkQLa4/0.jpg)](https://youtu.be/EyYFwvkQLa4)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/eKEwGsCz7Ho" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![Gesture Recognition on Moto360](http://img.youtube.com/vi/eKEwGsCz7Ho/0.jpg)](https://youtu.be/eKEwGsCz7Ho)
