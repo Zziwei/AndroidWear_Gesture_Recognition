@@ -22,6 +22,9 @@ emulator. <br \>
 # Workflow description
 
 "GestureUDP_AW" reads IMU data from watch and recognized one hard coded simple gesture 'Pointing Gesture'. Once the gesture is recognized, a message is sent to PC server via UDP. It can be extended to more gestures.
-This video shows how the gesture is performed:
+
+Demo Videos:
 
 [![Gesture Recognition on Moto360](http://img.youtube.com/vi/EyYFwvkQLa4/0.jpg)](https://youtu.be/EyYFwvkQLa4)
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/eKEwGsCz7Ho" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
