@@ -23,7 +23,7 @@ public class MessageSender {
     private int servPort = 4569;
 
     // the ip address of the server PC or android phone
-    private static final String Server_IP = "192.168.0.106";
+    private static final String Server_IP = "10.9.9.118"; //"192.168.0.106";
 
 
 

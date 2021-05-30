@@ -7,16 +7,12 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.view.View;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.wearable.DataMap;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -155,16 +151,21 @@ public class MainActivity extends Activity implements SensorEventListener {
 
             switch (app_status) {
                 case Config.APP_STATUS_RECOGNITION: {
-                    for (int i = 0; i < springList.size(); i++) {   //this is for the situation that several gestures are recognized at the same time
-                        int result = springList.get(i).SignalProcess(dataNode, (int) pktNum);
-                        if (result == Config.SPRING_TYPE_GESTURE) {
-                            Toast.makeText(this, springList.get(i).getName(), Toast.LENGTH_SHORT).show();
-                            sender.send(springList.get(i).getName() + "found!", this);  //found a gesture, send message to server through UDPs
-                        }
-                    }
+//                    for (int i = 0; i < springList.size(); i++) {   //this is for the situation that several gestures are recognized at the same time
+//                        int result = springList.get(i).SignalProcess(dataNode, (int) pktNum);
+//                        if (result == Config.SPRING_TYPE_GESTURE) {
+//                            Toast.makeText(this, springList.get(i).getName(), Toast.LENGTH_SHORT).show();
+//                            sender.send(springList.get(i).getName() + "found!", this);  //found a gesture, send message to server through UDPs
+//                        }
+//                    }
+                    String json = new Gson().toJson(dataNode);
+//                    String json = "Hello PC";
+                    sender.send(json.getBytes());
                     break;
                 }
             }
+
+
         }
     }
 
