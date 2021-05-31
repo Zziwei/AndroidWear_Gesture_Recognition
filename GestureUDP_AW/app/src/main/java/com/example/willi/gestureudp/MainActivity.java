@@ -9,12 +9,15 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.net.*;
 import java.util.ArrayList;
 
 public class MainActivity extends Activity implements SensorEventListener {
@@ -36,6 +39,9 @@ public class MainActivity extends Activity implements SensorEventListener {
 
     private ArrayList<SPRING> springList;
     private MessageSender sender;
+    private UdpSender sender2= new UdpSender();
+    public MainActivity() throws SocketException, UnknownHostException {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,9 +129,6 @@ public class MainActivity extends Activity implements SensorEventListener {
     @Override
     public void onSensorChanged(SensorEvent event) {
         // If sensor is unreliable, then just return
-        if (event.accuracy == SensorManager.SENSOR_STATUS_UNRELIABLE) {
-            return;
-        }
 
         if(!accStatus && !gyrStatus) {
             dataNode = new DataNode();
@@ -148,7 +151,21 @@ public class MainActivity extends Activity implements SensorEventListener {
             long currentTime = System.currentTimeMillis();
             dataNode.setTimeStamp(currentTime);
             dataNode.setPktNum(++pktNum);
+            switch (app_status) {
+                case Config.APP_STATUS_RECOGNITION:
+                    {
+                        String json = new Gson().toJson(dataNode);
 
+                        //for (int i = 0; i < springList.size(); i++) {   //this is for the situation that several gestures are recognized at the same time
+                        //int result = springList.get(i).SignalProcess(dataNode, (int) pktNum);
+                        //if (result == Config.SPRING_TYPE_GESTURE) {
+                            //Toast.makeText(this, springList.get(i).getName(), Toast.LENGTH_SHORT).show();
+                        sender2.SendTo(json.getBytes());  //found a gesture, send message to server through UDPs
+                        //}
+                    }
+                    break;
+                }
+            /*
             switch (app_status) {
                 case Config.APP_STATUS_RECOGNITION: {
 //                    for (int i = 0; i < springList.size(); i++) {   //this is for the situation that several gestures are recognized at the same time
@@ -159,11 +176,12 @@ public class MainActivity extends Activity implements SensorEventListener {
 //                        }
 //                    }
                     String json = new Gson().toJson(dataNode);
-//                    String json = "Hello PC";
-                    sender.send(json.getBytes());
+//
+
+                    }
                     break;
                 }
-            }
+            }*/
 
 
         }
