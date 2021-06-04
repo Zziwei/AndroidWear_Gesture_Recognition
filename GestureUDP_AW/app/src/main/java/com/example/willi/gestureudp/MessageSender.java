@@ -5,6 +5,7 @@ a gesture is recognized.
 package com.example.willi.gestureudp;
 
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -23,11 +24,7 @@ public class MessageSender {
     private int servPort = 4569;
 
     // the ip address of the server PC or android phone
-    private static final String Server_IP = "10.9.9.118"; //"192.168.0.106";
-
-
-
-
+    private static final String Server_IP = "192.168.0.112"; //"192.168.0.106";
     // Since asynchronous/blocking functions should not run on the UI thread.
     private ExecutorService executorService;
 
@@ -36,12 +33,15 @@ public class MessageSender {
         try {
             serverAddress = InetAddress.getByName(Server_IP);
         } catch (UnknownHostException e) {
+            Log.i("ERROR","error1");
             e.printStackTrace();
         }
 
         try {
             socket = new DatagramSocket(servPort);
         } catch (SocketException e) {
+            Log.i("ERROR","error2");
+
             e.printStackTrace();
         }
 
@@ -67,7 +67,9 @@ public class MessageSender {
                 DatagramPacket p = new DatagramPacket(data, data.length, serverAddress,
                         servPort);
                 try {
+
                     socket.send(p);
+
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -85,10 +87,13 @@ public class MessageSender {
             public void run() {
                 int msg_length = message.length();
                 byte[] messageByte = message.getBytes();
+                Log.i("MESSAGE", String.valueOf(messageByte));
                 DatagramPacket p = new DatagramPacket(messageByte, msg_length, serverAddress,
                         servPort); // create DatagramPacket with message as data
                 try {
+
                     socket.send(p); // try to send
+
                 } catch (IOException e) {
                     e.printStackTrace();
                     Toast.makeText(context, e.getMessage(), Toast.LENGTH_SHORT).show();

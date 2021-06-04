@@ -2,6 +2,7 @@ package com.example.willi.gestureudp;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -12,7 +13,6 @@ import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -32,9 +32,7 @@ public class MainActivity extends Activity implements SensorEventListener {
     private boolean accStatus = false;
     private boolean gyrStatus = false;
     private DataNode dataNode;
-
     private long pktNum;
-
     private int app_status = Config.APP_STATUS_NONE;
 
     private ArrayList<SPRING> springList;
@@ -60,6 +58,10 @@ public class MainActivity extends Activity implements SensorEventListener {
                     public void onClick(View v) {
                         switch (app_status) {
                             case Config.APP_STATUS_NONE: {
+                                Intent intent = new Intent(MainActivity.this, AccelerometerTest.class);
+
+                                startActivity(intent);
+
                                 startRecognition();
                                 break;
                             }
@@ -103,8 +105,8 @@ public class MainActivity extends Activity implements SensorEventListener {
 
         switchButton.setText(Config.SWITCH_BUTT_TXT_STOP_RECOGNITION);
         switchButton.setBackgroundColor(Color.RED);
-        mSensorManager.registerListener(this, accSensor, SensorManager.SENSOR_DELAY_FASTEST);
-        mSensorManager.registerListener(this, gyroSensor, SensorManager.SENSOR_DELAY_FASTEST);
+        mSensorManager.registerListener(this, accSensor, 0);
+        mSensorManager.registerListener(this, gyroSensor, 0);
     }
 
     /**
